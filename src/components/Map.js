@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import List from './List';
 import './styles/Map.css';
-import { loadMap } from '../HereAPI/HereMapsAPI';
+import { loadMap } from '../utils/HereMapsAPI';
 import { APP_ID, APP_CODE } from '../data/credentials';
 
 class Map extends Component {
