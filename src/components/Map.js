@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import List from './List';
 import './styles/Map.css';
-import { loadMap } from '../utils/HereMapsAPI';
-import { APP_ID, APP_CODE } from '../data/credentials';
+import { loadMapLibraries, initMap } from '../utils/HereMapsAPI';
 
 class Map extends Component {
     state = {
@@ -20,32 +19,10 @@ class Map extends Component {
 
     isMapLoaded() {
         if (!this.state.isMapLoaded) {
-            loadMap()
-            .then(this.initMap.bind(this, this.state.center))
+            loadMapLibraries()
+            .then(initMap.bind(this, this.state.center))
             .then(this.setState({isMapLoaded: true}));
         }
-    }
-
-    initMap() {
-        let platform = new window.H.service.Platform({
-            'app_id': APP_ID,
-            'app_code': APP_CODE
-        });
-
-        let mapTypes = platform.createDefaultLayers();
-        
-        let map = new window.H.Map(
-            document.getElementById('map-container'),
-            mapTypes.normal.map, {
-                zoom: 14,
-                center: this.state.center
-            }
-        );
-
-        let mapEvents = new window.H.mapevents.MapEvents(map);
-        let behavior = new window.H.mapevents.Behavior(mapEvents);
-
-        window.addEventListener('resize', () => map.getViewPort().resize());
     }
 
     render () {

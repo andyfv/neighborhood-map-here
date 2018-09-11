@@ -1,3 +1,8 @@
+import {
+    APP_ID,
+    APP_CODE
+} from '../data/credentials';
+
 const libraries = {
     mapsjsCore: 'http://js.api.here.com/v3/3.0/mapsjs-core.js',
     mapsjsService: 'http://js.api.here.com/v3/3.0/mapsjs-service.js',
@@ -6,7 +11,7 @@ const libraries = {
 
 const headTag = document.getElementsByTagName('head')[0];
 
-export const loadMap = function () {
+export const loadMapLibraries = function () {
     // First script loads
     return getLibrary(libraries.mapsjsCore)
     .then(() => Promise.all([
@@ -15,8 +20,7 @@ export const loadMap = function () {
             getLibrary(libraries.mapjsEvents)
         ])
     )
-    .catch(error => new Error('failed to load map'))
-    
+    .catch(error => new Error('failed to load map: ' + error))
 }
 
 function getLibrary(url) {
@@ -36,17 +40,27 @@ function getLibrary(url) {
         }
 
         headTag.appendChild(scriptHTML);
-        console.log('exit');
-        console.log(window);
     })
 }
 
+export const initMap = function (center) {
+   let platform = new window.H.service.Platform({
+       'app_id': APP_ID,
+       'app_code': APP_CODE
+   });
 
+   let mapTypes = platform.createDefaultLayers();
 
-// function getLibrary(url) {
-//     fetch(url)
-//     .then(() => {
-//         console.log(window);
+   let map = new window.H.Map(
+       document.getElementById('map-container'),
+       mapTypes.normal.map, {
+           zoom: 14,
+           center: center
+       }
+   );
 
-//     })
-// }
+   let mapEvents = new window.H.mapevents.MapEvents(map);
+   let behavior = new window.H.mapevents.Behavior(mapEvents);
+
+   window.addEventListener('resize', () => map.getViewPort().resize());
+}
