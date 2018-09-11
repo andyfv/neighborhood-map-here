@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import List from './List';
 import './styles/Map.css';
-import { loadMapLibraries, initMap } from '../utils/HereMapsAPI';
+import { initMap } from '../utils/HereMapsAPI';
 
 class Map extends Component {
     state = {
@@ -19,8 +19,7 @@ class Map extends Component {
 
     isMapLoaded() {
         if (!this.state.isMapLoaded) {
-            loadMapLibraries()
-            .then(initMap.bind(this, this.state.center))
+            initMap(this.state.center)
             .then(this.setState({isMapLoaded: true}));
         }
     }

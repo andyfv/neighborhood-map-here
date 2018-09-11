@@ -1,29 +1,24 @@
 import {
     APP_ID,
-    APP_CODE
-} from '../data/credentials';
-
-const libraries = {
-    mapsjsCore: 'http://js.api.here.com/v3/3.0/mapsjs-core.js',
-    mapsjsService: 'http://js.api.here.com/v3/3.0/mapsjs-service.js',
-    mapjsEvents: 'http://js.api.here.com/v3/3.0/mapsjs-mapevents.js'
-};
+    APP_CODE,
+    LIB
+} from '../data/HereMapsData';
 
 const headTag = document.getElementsByTagName('head')[0];
 
-export const loadMapLibraries = function () {
-    // First script loads
-    return getLibrary(libraries.mapsjsCore)
-    .then(() => Promise.all([
-            // Load the rest async
-            getLibrary(libraries.mapsjsService),
-            getLibrary(libraries.mapjsEvents)
-        ])
-    )
-    .catch(error => new Error('failed to load map: ' + error))
+export const initMap = function (center) {
+    // First load mapjsCore
+    return loadLibrary(LIB.mapsjsCore)
+        .then(() => Promise.all([
+            // Then load the rest async after mapjsCore has loaded
+            loadLibrary(LIB.mapsjsService),
+            loadLibrary(LIB.mapjsEvents)
+        ]))
+        .then(defineMap.bind(this, center))
+        .catch(error => new Error('failed to load map: ' + error))
 }
 
-function getLibrary(url) {
+function loadLibrary(url) {
     return new Promise((resolve, reject) => {
         let scriptHTML = document.createElement('script');
 
@@ -35,6 +30,7 @@ function getLibrary(url) {
         scriptHTML.onload = function () {
             resolve(url);
         }
+
         scriptHTML.onerror = function () {
             reject('error')
         }
@@ -43,24 +39,24 @@ function getLibrary(url) {
     })
 }
 
-export const initMap = function (center) {
-   let platform = new window.H.service.Platform({
-       'app_id': APP_ID,
-       'app_code': APP_CODE
-   });
+export const defineMap = function (center) {
+    let platform = new window.H.service.Platform({
+        'app_id': APP_ID,
+        'app_code': APP_CODE
+    });
 
-   let mapTypes = platform.createDefaultLayers();
+    let mapTypes = platform.createDefaultLayers();
 
-   let map = new window.H.Map(
-       document.getElementById('map-container'),
-       mapTypes.normal.map, {
-           zoom: 14,
-           center: center
-       }
-   );
+    let map = new window.H.Map(
+        document.getElementById('map-container'),
+        mapTypes.normal.map, {
+            zoom: 14,
+            center: center
+        }
+    );
 
-   let mapEvents = new window.H.mapevents.MapEvents(map);
-   let behavior = new window.H.mapevents.Behavior(mapEvents);
+    let mapEvents = new window.H.mapevents.MapEvents(map);
+    let behavior = new window.H.mapevents.Behavior(mapEvents);
 
-   window.addEventListener('resize', () => map.getViewPort().resize());
+    window.addEventListener('resize', () => map.getViewPort().resize());
 }
