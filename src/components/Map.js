@@ -1,37 +1,35 @@
 import React, { Component } from 'react';
-import SearchBar from './SearchBar';
-import List from './List';
-import './styles/Map.css';
-import { initMap } from '../utils/HereMapsAPI';
+import { connect } from 'react-redux';
+import './styles/map.css';
+import { mapLoadAndInit } from '../actions/mapActions';
 
 class Map extends Component {
-    state = {
-        isMapLoaded: false,
-        center: {
-            lat: 42.688730,
-            lng: 23.320168
-        }
-    }
 
     componentDidMount() {
-        this.isMapLoaded();
+        mapLoadAndInit(this.props.location);
     }
 
-    isMapLoaded() {
-        if (!this.state.isMapLoaded) {
-            initMap(this.state.center)
-            .then(this.setState({isMapLoaded: true}));
-        }
-    }
-
-    render () {
+    render() {
         return (
             <div id="map-container">
-                <SearchBar/>
-                <List/>
             </div>
         )
     }
 }
 
-export default Map;
+
+const mapStateToProps = (state) => {
+    return {
+        location: state.map.location,
+        state: state
+    }
+}
+
+const mapDispatchToProps = {
+    //mapLoadAndInit
+}
+
+export default connect(
+    mapStateToProps
+    // mapDispatchToProps
+)(Map);
