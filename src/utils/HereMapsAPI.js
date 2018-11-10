@@ -143,8 +143,6 @@ export function addMarker(place, index) {
 
 
 export function createInfoBubble(place) {
-    console.log(place);
-    
     // Remove previously opened InfoBubbles
     UI.getBubbles().forEach(bubble => UI.removeBubble(bubble))
 
