@@ -4,7 +4,6 @@
 export const APP_ID = 'VmqcO1wBakQUb0MFkHL2';
 export const APP_CODE = '_bSUHCICzRh-aNcScP_8pw';
 
-
 /* 
     Here Maps Libraries:
  */
@@ -16,11 +15,10 @@ export const LIBS = {
     mapjsUI: 'http://js.api.here.com/v3/3.0/mapsjs-ui.js'
 };
 
-/*
-    Maps configurations:
- */
-export const searchRadius = 5000; // meters
-export const center = {
-    lat: 42.688730,
-    lng: 23.320168
-}
+export const API = {
+    search: 'https://places.cit.api.here.com/places/v1/discover/search',
+    places: 'https://places.cit.api.here.com/places/v1/autosuggest',
+    explore: 'https://places.cit.api.here.com/places/v1/discover/explore',
+    around: 'https://places.cit.api.here.com/places/v1/discover/around',
+    browse: 'https://places.cit.api.here.com/places/v1/browse'
+};
