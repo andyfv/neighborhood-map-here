@@ -9,7 +9,7 @@
 
 ## About
 
-The **Neighborhood-Here** project is Map app written in React and Redux. You can search different POI and get basic information about them. The project emphasizes using React and Redux to build the application and the usage of third-party APIs (HereMapsAPI)
+The **Neighborhood-Here** project is Map app written in React and Redux. You can search different POI in the area and get basic information about them. The project emphasizes using React and Redux to build the application and the usage of third-party APIs (HereMapsAPI). 
 
 ## How to run it
 
