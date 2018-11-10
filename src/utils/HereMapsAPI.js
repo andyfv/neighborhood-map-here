@@ -108,6 +108,7 @@ export function searchPlaces(query = 'restaurant', cat) {
                 ${MapInstance.l.center.lng};
                 r=5000&
                 q=${query}&
+                language=en-US&
                 size=100`
 
     return fetch(formatURL(url), {
@@ -142,6 +143,8 @@ export function addMarker(place, index) {
 
 
 export function createInfoBubble(place) {
+    console.log(place);
+    
     // Remove previously opened InfoBubbles
     UI.getBubbles().forEach(bubble => UI.removeBubble(bubble))
 
@@ -174,5 +177,8 @@ function createBubbleHTML(place) {
     return `<div>
                 <h3>${place.title}</h2>
                 <h4>${place.vicinity}</h3>
+                ${(typeof(place.openingHours) !== 'undefined') ?
+                `<h5>${place.openingHours.text}</h5>` :
+                `Open Hours: No information`}
             </div>`
 }
