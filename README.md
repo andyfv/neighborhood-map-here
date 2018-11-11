@@ -54,8 +54,9 @@ On the page you will see three main elements:
 * To search specific POI you are interested in just type in the Search Box and your results will update in both the **Map** and **List**
 
 <p align="center">
-        <img src="public/screenshots/iphone5.png" width="320" title="Github Logo">
-        <img src="public/screenshots/iphone5_info.png" width="320" title="Github Logo">
+        <img src="public/screenshots/iphone5_results.png" width="280" alt="Search results on a phone">
+        <img src="public/screenshots/iphone5_info.png" width="280" alt="InfoBubble on a phone">
+        <img src="public/screenshots/iphone5_map.png" width="280" alt="Map results on a phone">
 </p>
 
 ## Dependencies
