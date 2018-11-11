@@ -81,6 +81,7 @@ export function initMap(center) {
     // Create the default UI and remove the unwanted controls
     UI = window.H.ui.UI.createDefault(MapInstance, defaultLayers);
     UI.removeControl('mapsettings');
+    UI.removeControl('scalebar');
     UI.removeControl('zoom');
 
     // Add group for markers and add it to the map instance
