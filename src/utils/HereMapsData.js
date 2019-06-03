@@ -1,5 +1,8 @@
 /* 
-    Fill in your HereMaps Credentials:
+    HereMaps Credentials
+
+    Note: The credentials are protected from the HereMaps Service by whitelisting 
+    the specific Github Page domain name where the app is deployed
 */
 export const APP_ID = 'VmqcO1wBakQUb0MFkHL2';
 export const APP_CODE = '_bSUHCICzRh-aNcScP_8pw';
